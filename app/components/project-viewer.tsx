@@ -35,15 +35,8 @@ export function ProjectViewer({ projects }: { projects: Project[] }) {
   const shift = reduceMotion ? 0 : 10;
 
   return (
-    <main className="relative h-[100svh] overflow-hidden">
+    <main className="relative flex h-[100svh] flex-col overflow-hidden">
       <h1 className="sr-only">Anda Lavinia Stancu, selected work</h1>
-
-      <ImagePlate
-        plateKey={project.slug}
-        image={project.images[0]}
-        href={`/work/${project.slug}`}
-        sizeClass="max-h-[calc(100svh-9rem)] max-w-[calc(100vw-6.5rem)] cursor-pointer md:max-h-[calc(100svh-11rem)] md:max-w-[min(52vw,44rem)]"
-      />
 
       <EdgeNav
         onPrevious={() => step(-1)}
@@ -52,8 +45,17 @@ export function ProjectViewer({ projects }: { projects: Project[] }) {
         nextLabel={`Next project, ${next.name}`}
       />
 
+      <div className="relative min-h-0 flex-1">
+        <ImagePlate
+          plateKey={project.slug}
+          image={project.images[0]}
+          href={`/work/${project.slug}`}
+          sizeClass="max-h-full max-w-[calc(100vw-6.5rem)] cursor-pointer md:max-w-[min(52vw,44rem)]"
+        />
+      </div>
+
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-5 z-30 flex justify-center md:bottom-6"
+        className="pointer-events-none z-30 flex shrink-0 justify-center px-5 pb-5 md:pb-6"
         aria-live="polite"
       >
         <AnimatePresence mode="wait">

@@ -35,13 +35,7 @@ export function ProjectGallery({ project }: { project: Project }) {
   });
 
   return (
-    <main className="relative h-[100svh] overflow-hidden">
-      <ImagePlate
-        plateKey={image.src}
-        image={image}
-        sizeClass="max-h-[calc(100svh-16rem)] max-w-[calc(100vw-6.5rem)] lg:max-h-[calc(100svh-14rem)] lg:max-w-[min(52vw,44rem)]"
-      />
-
+    <main className="relative flex h-[100svh] flex-col overflow-hidden">
       <EdgeNav
         onPrevious={() => step(-1)}
         onNext={() => step(1)}
@@ -49,7 +43,15 @@ export function ProjectGallery({ project }: { project: Project }) {
         nextLabel="Next image"
       />
 
-      <div className="absolute inset-x-0 bottom-5 z-30 flex flex-col items-center gap-4 px-5 lg:bottom-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-end lg:gap-6 lg:px-8">
+      <div className="relative min-h-0 flex-1">
+        <ImagePlate
+          plateKey={image.src}
+          image={image}
+          sizeClass="max-h-full max-w-[calc(100vw-6.5rem)] lg:max-w-[min(52vw,44rem)]"
+        />
+      </div>
+
+      <div className="pointer-events-none z-30 flex shrink-0 flex-col items-center gap-4 px-5 pb-5 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-end lg:gap-6 lg:px-8 lg:pb-6">
         <AnimatePresence mode="wait">
           <motion.div
             key={image.src}
@@ -64,7 +66,7 @@ export function ProjectGallery({ project }: { project: Project }) {
         </AnimatePresence>
 
         <div className="flex flex-col items-center gap-3 lg:gap-4">
-          <div className="flex items-end gap-1.5 lg:gap-2">
+          <div className="pointer-events-auto flex items-end gap-1.5 lg:gap-2">
             {project.images.map((entry, index) => (
               <button
                 key={entry.src}

@@ -53,11 +53,15 @@ export function ImagePlate({ plateKey, image, sizeClass, href }: ImagePlateProps
   );
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-20 grid place-items-center">
+    <div className="pointer-events-none absolute inset-0 z-20 grid grid-rows-[1fr] pt-16 pb-4 md:pt-20 md:pb-6">
       <AnimatePresence>
-        <motion.div key={plateKey} className="col-start-1 row-start-1" {...motionProps}>
+        <motion.div
+          key={plateKey}
+          className="col-start-1 row-start-1 flex h-full min-h-0 w-full items-center justify-center"
+          {...motionProps}
+        >
           {href ? (
-            <Link href={href} className="pointer-events-auto block">
+            <Link href={href} className="pointer-events-auto flex h-full min-h-0 items-center">
               {picture}
             </Link>
           ) : (
