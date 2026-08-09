@@ -1,26 +1,69 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ground: var(--ground);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+
+  --font-sans: var(--font-geist), Helvetica, Arial, sans-serif;
+
+  --text-chrome: 0.8125rem;
+  --text-chrome--line-height: 1.2;
+  --text-chrome--letter-spacing: -0.004em;
+
+  --text-fine: 0.6875rem;
+  --text-fine--line-height: 1.45;
+  --text-fine--letter-spacing: 0;
+
+  --ease-swift: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: light;
+  --ground: #ebebeb;
+  --ink: #141414;
+  --ink-muted: #636363;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overscroll-behavior: none;
+  background-color: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-chrome);
+  line-height: var(--text-chrome--line-height);
+  letter-spacing: var(--text-chrome--letter-spacing);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 4px;
+}
+
+@keyframes chrome-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.chrome-in {
+  animation: chrome-in 420ms var(--ease-swift) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chrome-in {
+    animation: none;
+  }
 }
