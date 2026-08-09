@@ -38,14 +38,13 @@ export function ProjectViewer({ projects }: { projects: Project[] }) {
     <main className="relative flex h-[100svh] flex-col overflow-hidden">
       <h1 className="sr-only">Anda Lavinia Stancu, selected work</h1>
 
-      <EdgeNav
-        onPrevious={() => step(-1)}
-        onNext={() => step(1)}
-        previousLabel={`Previous project, ${previous.name}`}
-        nextLabel={`Next project, ${next.name}`}
-      />
-
       <div className="relative min-h-0 flex-1">
+        <EdgeNav
+          onPrevious={() => step(-1)}
+          onNext={() => step(1)}
+          previousLabel={`Previous project, ${previous.name}`}
+          nextLabel={`Next project, ${next.name}`}
+        />
         <ImagePlate
           plateKey={project.slug}
           image={project.images[0]}

@@ -36,14 +36,13 @@ export function ProjectGallery({ project }: { project: Project }) {
 
   return (
     <main className="relative flex h-[100svh] flex-col overflow-hidden">
-      <EdgeNav
-        onPrevious={() => step(-1)}
-        onNext={() => step(1)}
-        previousLabel="Previous image"
-        nextLabel="Next image"
-      />
-
       <div className="relative min-h-0 flex-1">
+        <EdgeNav
+          onPrevious={() => step(-1)}
+          onNext={() => step(1)}
+          previousLabel="Previous image"
+          nextLabel="Next image"
+        />
         <ImagePlate
           plateKey={image.src}
           image={image}

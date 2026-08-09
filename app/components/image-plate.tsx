@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ProjectImage } from "../data/projects";
-import { EASE_SWIFT } from "../site";
+import { EASE_SWIFT, PLATE_INSET } from "../site";
 
 type ImagePlateProps = {
   plateKey: string;
@@ -53,7 +53,7 @@ export function ImagePlate({ plateKey, image, sizeClass, href }: ImagePlateProps
   );
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-20 grid grid-rows-[1fr] pt-16 pb-4 md:pt-20 md:pb-6">
+    <div className={`pointer-events-none absolute inset-0 z-20 grid grid-rows-[1fr] ${PLATE_INSET}`}>
       <AnimatePresence>
         <motion.div
           key={plateKey}
