@@ -47,7 +47,7 @@ export function ImagePlate({ plateKey, image, sizeClass, href }: ImagePlateProps
       alt={image.alt}
       width={image.width}
       height={image.height}
-      sizes="(max-width: 768px) 80vw, 52vw"
+      sizes="(max-width: 768px) 95vw, 52vw"
       priority
       className={`h-auto w-auto object-contain ${sizeClass}`}
     />

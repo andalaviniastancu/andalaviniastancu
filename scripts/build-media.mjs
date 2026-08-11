@@ -5,7 +5,7 @@ import sharp from "sharp";
 const SOURCE_DIR = path.join("source-images", "sequence");
 const OUTPUT_DIR = path.join("public", "media");
 const MANIFEST = path.join("app", "data", "media.ts");
-const WIDTHS = [256, 384, 640, 1200, 2048];
+const WIDTHS = [384, 640, 1200];
 const QUALITY = 72;
 
 function parseName(file) {
