@@ -3,12 +3,13 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import type { ProjectImage } from "../data/projects";
 import { EASE_SWIFT, PLATE_INSET } from "../site";
+
+type PlateImage = { src: string; width: number; height: number; alt: string };
 
 type ImagePlateProps = {
   plateKey: string;
-  image: ProjectImage;
+  image: PlateImage;
   sizeClass: string;
   href?: string;
 };

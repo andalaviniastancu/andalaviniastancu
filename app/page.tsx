@@ -1,6 +1,6 @@
-import { ProjectViewer } from "./components/project-viewer";
-import { PROJECTS } from "./data/projects";
+import { PortfolioViewer } from "./components/portfolio-viewer";
+import { SEQUENCE } from "./data/sequence";
 
 export default function Home() {
-  return <ProjectViewer projects={PROJECTS} />;
+  return <PortfolioViewer frames={SEQUENCE} />;
 }
