@@ -8,13 +8,13 @@ import {
 } from "../site";
 
 export const metadata: Metadata = {
-  title: `Information, ${SITE_NAME}`,
+  title: `Info, ${SITE_NAME}`,
   description: `${SITE_ROLE} available worldwide. Contact ${SITE_NAME}.`,
 };
 
 const LINK_CLASS = "w-fit transition-colors duration-150 hover:text-ink-muted";
 
-export default function Information() {
+export default function Info() {
   return (
     <main className="relative h-[100svh] overflow-hidden">
       <div className="absolute bottom-5 left-5 flex flex-col gap-8 pr-5 md:bottom-6 md:left-8">

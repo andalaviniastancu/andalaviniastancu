@@ -11,7 +11,7 @@ export type Frame = {
 
 const PUBLICATIONS: Record<number, string> = {
   1: "C41 Magazine",
-  2: "Vakuum Magazine",
+  2: "VAKUUM Magazine",
   3: "C41 Magazine",
   4: "C41 Magazine",
   5: "C41 Magazine",
