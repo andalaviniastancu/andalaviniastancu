@@ -35,9 +35,12 @@ export type SiteSettings = {
   indexOrder: IndexEntry[] | null;
 };
 
+const PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "6jvpibwc";
+const DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production";
+
 const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
+  projectId: PROJECT_ID,
+  dataset: DATASET,
   apiVersion: "2024-10-01",
   useCdn: false,
 });
