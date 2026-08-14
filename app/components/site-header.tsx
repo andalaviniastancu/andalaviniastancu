@@ -2,13 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { EMAIL, SITE_NAME } from "../site";
+import type { IndexEntry } from "../../lib/sanity";
 import { IndexMenu } from "./index-menu";
 
 const ITEM_CLASS =
   "chrome-in pointer-events-auto whitespace-nowrap transition-colors duration-150";
 
-export function SiteHeader() {
+type SiteHeaderProps = {
+  siteName: string;
+  email: string;
+  indexEntries: IndexEntry[];
+};
+
+export function SiteHeader({ siteName, email, indexEntries }: SiteHeaderProps) {
   const pathname = usePathname();
   const onInfo = pathname === "/info";
 
@@ -19,11 +25,15 @@ export function SiteHeader() {
         className={`${ITEM_CLASS} hover:text-ink-muted`}
         style={{ animationDelay: "180ms" }}
       >
-        {SITE_NAME}
+        {siteName}
       </Link>
 
       <nav className="flex shrink-0 items-center gap-4 md:gap-6">
-        <IndexMenu className={ITEM_CLASS} style={{ animationDelay: "240ms" }} />
+        <IndexMenu
+          entries={indexEntries}
+          className={ITEM_CLASS}
+          style={{ animationDelay: "240ms" }}
+        />
 
         <Link
           href="/info"
@@ -37,7 +47,7 @@ export function SiteHeader() {
         </Link>
 
         <a
-          href={`mailto:${EMAIL}`}
+          href={`mailto:${email}`}
           className={`${ITEM_CLASS} text-ink-muted hover:text-ink`}
           style={{ animationDelay: "360ms" }}
         >

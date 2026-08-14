@@ -1,6 +1,8 @@
 import { PortfolioViewer } from "./components/portfolio-viewer";
-import { SEQUENCE } from "./data/sequence";
+import { getFrames, getSettings } from "../lib/sanity";
 
-export default function Home() {
-  return <PortfolioViewer frames={SEQUENCE} />;
+export default async function Home() {
+  const [frames, settings] = await Promise.all([getFrames(), getSettings()]);
+
+  return <PortfolioViewer frames={frames} siteName={settings?.name ?? ""} />;
 }

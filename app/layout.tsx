@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { SiteHeader } from "./components/site-header";
-import { SITE_NAME, SITE_ROLE } from "./site";
+import { getSettings } from "../lib/sanity";
 import "./globals.css";
 
 const geist = Geist({
@@ -9,16 +9,26 @@ const geist = Geist({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: `${SITE_NAME}, ${SITE_ROLE}`,
-  description: `Selected work by ${SITE_NAME}, ${SITE_ROLE.toLowerCase()}.`,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+  return {
+    title: `${settings?.name ?? ""}, ${settings?.role ?? ""}`,
+    description: `Selected work by ${settings?.name ?? ""}.`,
+  };
+}
+
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const settings = await getSettings();
+
   return (
     <html lang="en" className={geist.variable}>
       <body>
-        <SiteHeader />
+        <SiteHeader
+          siteName={settings?.name ?? ""}
+          email={settings?.email ?? ""}
+          indexEntries={settings?.indexOrder ?? []}
+        />
         {children}
       </body>
     </html>

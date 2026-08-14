@@ -1,7 +1,7 @@
-import type { Credit } from "../data/editorials";
+import type { Credit } from "../../lib/sanity";
 
 type CreditListProps = {
-  credits?: Credit[];
+  credits?: Credit[] | null;
   className?: string;
 };
 

@@ -2,26 +2,29 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CreditList } from "../../components/credit-list";
 import { EditorialFrame } from "../../components/editorial-frame";
-import { EDITORIALS, findEditorial } from "../../data/editorials";
-import { SITE_NAME } from "../../site";
+import { getEditorial, getEditorialSlugs, getSettings } from "../../../lib/sanity";
 
 export const dynamicParams = false;
 
-export function generateStaticParams() {
-  return EDITORIALS.map(({ slug }) => ({ slug }));
+export async function generateStaticParams() {
+  const slugs = await getEditorialSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
   params,
 }: PageProps<"/editorial/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const editorial = findEditorial(slug);
+  const [editorial, settings] = await Promise.all([
+    getEditorial(slug),
+    getSettings(),
+  ]);
 
   if (!editorial) return {};
 
   return {
-    title: `${editorial.title}, ${SITE_NAME}`,
-    description: `${editorial.title}, styled by ${SITE_NAME}.`,
+    title: `${editorial.title}, ${settings?.name ?? ""}`,
+    description: `${editorial.title}, styled by ${settings?.name ?? ""}.`,
   };
 }
 
@@ -29,7 +32,7 @@ export default async function EditorialPage({
   params,
 }: PageProps<"/editorial/[slug]">) {
   const { slug } = await params;
-  const editorial = findEditorial(slug);
+  const editorial = await getEditorial(slug);
 
   if (!editorial) notFound();
 
@@ -40,10 +43,10 @@ export default async function EditorialPage({
           {editorial.title}
         </h1>
 
-        {editorial.frames.map((frame, position) => (
+        {(editorial.images ?? []).map((image, position) => (
           <EditorialFrame
-            key={frame.src}
-            frame={frame}
+            key={image.key}
+            image={image}
             priority={position === 0}
           />
         ))}

@@ -3,13 +3,12 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import type { SanityImage } from "../../lib/sanity";
 import { EASE_SWIFT, PLATE_INSET } from "../site";
-
-type PlateImage = { src: string; width: number; height: number; alt: string };
 
 type ImagePlateProps = {
   plateKey: string;
-  image: PlateImage;
+  image: SanityImage;
   sizeClass: string;
   href?: string;
 };
@@ -44,17 +43,21 @@ export function ImagePlate({ plateKey, image, sizeClass, href }: ImagePlateProps
   const picture = (
     <Image
       src={image.src}
-      alt={image.alt}
+      alt={image.alt ?? ""}
       width={image.width}
       height={image.height}
       sizes="(max-width: 768px) 95vw, 52vw"
+      placeholder={image.lqip ? "blur" : "empty"}
+      blurDataURL={image.lqip ?? undefined}
       priority
       className={`h-auto w-auto object-contain ${sizeClass}`}
     />
   );
 
   return (
-    <div className={`pointer-events-none absolute inset-0 z-20 grid grid-rows-[1fr] ${PLATE_INSET}`}>
+    <div
+      className={`pointer-events-none absolute inset-0 z-20 grid grid-rows-[1fr] ${PLATE_INSET}`}
+    >
       <AnimatePresence>
         <motion.div
           key={plateKey}

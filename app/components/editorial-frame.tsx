@@ -2,15 +2,15 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
-import type { Frame } from "../data/sequence";
+import type { SanityImage } from "../../lib/sanity";
 import { EASE_SWIFT } from "../site";
 
 type EditorialFrameProps = {
-  frame: Frame;
+  image: SanityImage;
   priority: boolean;
 };
 
-export function EditorialFrame({ frame, priority }: EditorialFrameProps) {
+export function EditorialFrame({ image, priority }: EditorialFrameProps) {
   const reduceMotion = useReducedMotion() ?? false;
 
   return (
@@ -22,11 +22,13 @@ export function EditorialFrame({ frame, priority }: EditorialFrameProps) {
       className="flex justify-center"
     >
       <Image
-        src={frame.src}
-        alt={frame.alt}
-        width={frame.width}
-        height={frame.height}
+        src={image.src}
+        alt={image.alt ?? ""}
+        width={image.width}
+        height={image.height}
         priority={priority}
+        placeholder={image.lqip ? "blur" : "empty"}
+        blurDataURL={image.lqip ?? undefined}
         sizes="(max-width: 768px) 90vw, min(52vw, 44rem)"
         className="h-auto max-h-[85svh] w-auto max-w-full object-contain"
       />

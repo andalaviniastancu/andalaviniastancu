@@ -4,16 +4,17 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
-import { EDITORIALS } from "../data/editorials";
+import type { IndexEntry } from "../../lib/sanity";
 import { useMountEffect } from "../hooks/useMountEffect";
 import { EASE_SWIFT } from "../site";
 
 type IndexMenuProps = {
+  entries: IndexEntry[];
   className: string;
   style?: React.CSSProperties;
 };
 
-export function IndexMenu({ className, style }: IndexMenuProps) {
+export function IndexMenu({ entries, className, style }: IndexMenuProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -44,6 +45,8 @@ export function IndexMenu({ className, style }: IndexMenuProps) {
     };
   });
 
+  if (entries.length === 0) return null;
+
   return (
     <div ref={containerRef} className="relative">
       <button
@@ -69,7 +72,7 @@ export function IndexMenu({ className, style }: IndexMenuProps) {
             transition={{ duration: 0.16, ease: EASE_SWIFT }}
             className="pointer-events-auto absolute top-full -left-3 mt-2 flex min-w-max flex-col gap-0.5 bg-ground px-3 py-2"
           >
-            {EDITORIALS.map(({ slug, title }) => {
+            {entries.map(({ slug, title }) => {
               const current = pathname === `/editorial/${slug}`;
 
               return (
