@@ -67,7 +67,7 @@ export function IndexMenu({ className, style }: IndexMenuProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduceMotion ? 0 : -4 }}
             transition={{ duration: 0.16, ease: EASE_SWIFT }}
-            className="pointer-events-auto absolute top-full -left-[13px] mt-2 flex min-w-max flex-col gap-1.5 border border-ink/15 bg-ground px-3 py-2"
+            className="pointer-events-auto absolute top-full -left-3 mt-2 flex min-w-max flex-col gap-1.5 bg-ground px-3 py-2"
           >
             {EDITORIALS.map(({ slug, title }) => {
               const current = pathname === `/editorial/${slug}`;
