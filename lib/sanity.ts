@@ -24,10 +24,13 @@ export type Editorial = {
 
 export type IndexEntry = { title: string; slug: string };
 
+export const FALLBACK_SITE_URL = "https://andastancu.com";
+
 export type SiteSettings = {
   name: string;
   role: string;
   email: string;
+  siteUrl: string | null;
   instagramHandle: string | null;
   instagramUrl: string | null;
   infoHeading: string | null;
@@ -90,8 +93,24 @@ export async function getEditorialSlugs(): Promise<string[]> {
 export async function getSettings(): Promise<SiteSettings | null> {
   return client.fetch<SiteSettings | null>(`
     *[_type == "siteSettings"][0]{
-      name, role, email, instagramHandle, instagramUrl, infoHeading, infoNote,
+      name, role, email, siteUrl, instagramHandle, instagramUrl, infoHeading, infoNote,
       indexOrder[]->{title, "slug": slug.current}
     }
   `);
+}
+
+export async function getEditorialIndex(): Promise<
+  { slug: string; title: string; updatedAt: string }[]
+> {
+  const result = await client.fetch<
+    { slug: string; title: string; updatedAt: string }[] | null
+  >(`
+    *[_type == "editorial" && defined(slug.current)]{
+      "slug": slug.current,
+      title,
+      "updatedAt": _updatedAt
+    }
+  `);
+
+  return result ?? [];
 }

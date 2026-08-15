@@ -4,9 +4,13 @@ import { getSettings } from "../../lib/sanity";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
 
+  const description = settings?.infoHeading ?? undefined;
+
   return {
-    title: `Info, ${settings?.name ?? ""}`,
-    description: settings?.infoHeading ?? undefined,
+    title: "Info",
+    description,
+    alternates: { canonical: "/info" },
+    openGraph: { title: `Info, ${settings?.name ?? ""}`, description, url: "/info" },
   };
 }
 

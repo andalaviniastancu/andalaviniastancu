@@ -24,6 +24,12 @@ export const siteSettings = defineType({
       validation: (rule) => rule.required().email(),
     }),
     defineField({
+      name: "siteUrl",
+      title: "Site URL",
+      description: "Canonical address, used for search engines and share cards.",
+      type: "url",
+    }),
+    defineField({
       name: "instagramHandle",
       title: "Instagram handle",
       type: "string",
