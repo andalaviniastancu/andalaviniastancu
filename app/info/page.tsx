@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { getSettings } from "../../lib/sanity";
+import { getSettings, siteDescription } from "../../lib/sanity";
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
 
-  const description = settings?.infoHeading ?? undefined;
+  const description = siteDescription(settings);
 
   return {
     title: "Info",

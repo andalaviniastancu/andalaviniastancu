@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { SiteHeader } from "./components/site-header";
-import { FALLBACK_SITE_URL, getSettings } from "../lib/sanity";
+import { FALLBACK_SITE_URL, getSettings, siteDescription } from "../lib/sanity";
 import "./globals.css";
 
 const geist = Geist({
@@ -13,8 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
   const name = settings?.name ?? "";
   const siteUrl = settings?.siteUrl ?? FALLBACK_SITE_URL;
-  const description =
-    settings?.infoHeading ?? `Selected work by ${name}.`;
+  const description = siteDescription(settings);
 
   return {
     metadataBase: new URL(siteUrl),

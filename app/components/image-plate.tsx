@@ -11,9 +11,16 @@ type ImagePlateProps = {
   image: SanityImage;
   sizeClass: string;
   href?: string;
+  fallbackAlt?: string;
 };
 
-export function ImagePlate({ plateKey, image, sizeClass, href }: ImagePlateProps) {
+export function ImagePlate({
+  plateKey,
+  image,
+  sizeClass,
+  href,
+  fallbackAlt = "",
+}: ImagePlateProps) {
   const reduceMotion = useReducedMotion() ?? false;
 
   const motionProps = reduceMotion
@@ -43,7 +50,7 @@ export function ImagePlate({ plateKey, image, sizeClass, href }: ImagePlateProps
   const picture = (
     <Image
       src={image.src}
-      alt={image.alt ?? ""}
+      alt={image.alt || fallbackAlt}
       width={image.width}
       height={image.height}
       sizes="(max-width: 768px) 95vw, 52vw"

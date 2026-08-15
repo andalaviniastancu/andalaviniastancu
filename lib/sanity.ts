@@ -26,6 +26,30 @@ export type IndexEntry = { title: string; slug: string };
 
 export const FALLBACK_SITE_URL = "https://andastancu.com";
 
+const listFormatter = new Intl.ListFormat("en-GB", {
+  style: "long",
+  type: "conjunction",
+});
+
+export function siteDescription(settings: SiteSettings | null) {
+  const heading = settings?.infoHeading?.replace(/\.$/, "") ?? "";
+  const titles = (settings?.indexOrder ?? []).map(({ title }) => title);
+
+  if (titles.length === 0) return `${heading}.`;
+
+  return `${heading}. Selected editorial work for ${listFormatter.format(titles)}.`;
+}
+
+export function editorialDescription(
+  title: string,
+  settings: SiteSettings | null,
+) {
+  const role = settings?.role?.toLowerCase() ?? "";
+  const name = settings?.name ?? "";
+
+  return `${title}, an editorial styled by ${name}, ${role} available worldwide.`;
+}
+
 export type SiteSettings = {
   name: string;
   role: string;

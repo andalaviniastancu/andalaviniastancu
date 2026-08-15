@@ -4,6 +4,7 @@ import { CreditList } from "../../components/credit-list";
 import { EditorialFrame } from "../../components/editorial-frame";
 import {
   FALLBACK_SITE_URL,
+  editorialDescription,
   getEditorial,
   getEditorialSlugs,
   getSettings,
@@ -27,7 +28,7 @@ export async function generateMetadata({
 
   if (!editorial) return {};
 
-  const description = `${editorial.title}, styled by ${settings?.name ?? ""}.`;
+  const description = editorialDescription(editorial.title, settings);
   const path = `/editorial/${slug}`;
 
   return {
@@ -58,6 +59,20 @@ export default async function EditorialPage({
   if (!editorial) notFound();
 
   const base = (settings?.siteUrl ?? FALLBACK_SITE_URL).replace(/\/$/, "");
+  const breadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: settings?.name ?? "", item: `${base}/` },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: editorial.title,
+        item: `${base}/editorial/${slug}`,
+      },
+    ],
+  };
+
   const work = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
@@ -75,6 +90,10 @@ export default async function EditorialPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(work) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
 
       <div className="mx-auto flex w-full max-w-[44rem] flex-col items-center gap-14 md:gap-20">
         <h1 className="chrome-in" style={{ animationDelay: "180ms" }}>
@@ -86,6 +105,7 @@ export default async function EditorialPage({
             key={image.key}
             image={image}
             priority={position === 0}
+            fallbackAlt={`${editorial.title}, look ${position + 1}, styled by ${settings?.name ?? ""}`}
           />
         ))}
 

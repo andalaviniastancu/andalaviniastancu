@@ -8,9 +8,14 @@ import { EASE_SWIFT } from "../site";
 type EditorialFrameProps = {
   image: SanityImage;
   priority: boolean;
+  fallbackAlt: string;
 };
 
-export function EditorialFrame({ image, priority }: EditorialFrameProps) {
+export function EditorialFrame({
+  image,
+  priority,
+  fallbackAlt,
+}: EditorialFrameProps) {
   const reduceMotion = useReducedMotion() ?? false;
 
   return (
@@ -23,7 +28,7 @@ export function EditorialFrame({ image, priority }: EditorialFrameProps) {
     >
       <Image
         src={image.src}
-        alt={image.alt ?? ""}
+        alt={image.alt || fallbackAlt}
         width={image.width}
         height={image.height}
         priority={priority}

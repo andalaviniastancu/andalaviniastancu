@@ -57,6 +57,11 @@ export function PortfolioViewer({ frames, siteName }: PortfolioViewerProps) {
         <ImagePlate
           plateKey={frame.key}
           image={frame}
+          fallbackAlt={
+            frame.publication
+              ? `${frame.publication}, styled by ${siteName}`
+              : `Work by ${siteName}`
+          }
           sizeClass="max-h-full max-w-[calc(100vw-2.5rem)] md:max-w-[min(52vw,44rem)]"
         />
       </div>
