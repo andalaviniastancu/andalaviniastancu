@@ -1,10 +1,30 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
+import { preload } from "react-dom";
 import type { SanityImage } from "../../lib/sanity";
 import { EASE_SWIFT, PLATE_INSET } from "../site";
+
+const PLATE_SIZES = "(max-width: 768px) 95vw, 52vw";
+
+export function preloadPlateImage(image: SanityImage) {
+  const { props } = getImageProps({
+    src: image.src,
+    alt: "",
+    width: image.width,
+    height: image.height,
+    sizes: PLATE_SIZES,
+  });
+
+  preload(props.src, {
+    as: "image",
+    imageSrcSet: props.srcSet,
+    imageSizes: props.sizes,
+    fetchPriority: "low",
+  });
+}
 
 type ImagePlateProps = {
   plateKey: string;
@@ -53,7 +73,7 @@ export function ImagePlate({
       alt={image.alt || fallbackAlt}
       width={image.width}
       height={image.height}
-      sizes="(max-width: 768px) 95vw, 52vw"
+      sizes={PLATE_SIZES}
       placeholder={image.lqip ? "blur" : "empty"}
       blurDataURL={image.lqip ?? undefined}
       priority

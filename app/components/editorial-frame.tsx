@@ -32,6 +32,7 @@ export function EditorialFrame({
         width={image.width}
         height={image.height}
         priority={priority}
+        loading={priority ? undefined : "eager"}
         placeholder={image.lqip ? "blur" : "empty"}
         blurDataURL={image.lqip ?? undefined}
         sizes="(max-width: 768px) 90vw, min(52vw, 44rem)"

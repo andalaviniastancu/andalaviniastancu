@@ -6,7 +6,9 @@ import type { Frame } from "../../lib/sanity";
 import { useMountEffect } from "../hooks/useMountEffect";
 import { EASE_SWIFT } from "../site";
 import { EdgeNav } from "./edge-nav";
-import { ImagePlate } from "./image-plate";
+import { ImagePlate, preloadPlateImage } from "./image-plate";
+
+const PRELOAD_OFFSETS = [1, 2, 3, -1];
 
 type PortfolioViewerProps = {
   frames: Frame[];
@@ -41,6 +43,11 @@ export function PortfolioViewer({ frames, siteName }: PortfolioViewerProps) {
   }
 
   const frame = frames[position];
+  PRELOAD_OFFSETS.forEach((offset) =>
+    preloadPlateImage(
+      frames[(position + offset + frames.length) % frames.length],
+    ),
+  );
   const shift = reduceMotion ? 0 : 10;
 
   return (
